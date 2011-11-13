@@ -1,0 +1,32 @@
+header
+  h1
+    a(href='/') Mockee Nodes
+section
+  .main
+    .mod
+      .hd
+        h3 Notes List
+      .bd
+        - if (notes.length) {
+        ul.note-list
+          - for (var i in notes) {
+          li
+            a(href= notes[i].url)= notes[i].title
+            span.date= notes[i].readableDate
+            span.opt
+              a(href='/note/edit/' + notes[i].id, target='_blank') 编辑
+              a(href='') 删除 
+          - }
+        - }
+aside 
+  .mod
+    .hd
+      h3 Privilege
+    .bd
+      ul.terse-list
+        li
+          a(href='/') Index 
+        li
+          a(href='/comment/list') Manage Comments
+        li
+          a(href='/admin/logout') Logout

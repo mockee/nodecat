@@ -1,0 +1,78 @@
+!= partial('partials/header') 
+section
+  .main
+    - if (notes.length) {
+    - notes.forEach (function (note) {
+      article
+        header
+          h2
+            a(href= note.url)= note.title
+          time= note.readableDate
+        .content!= note.bodyParsed
+        footer
+          span.post-meta= 'Posted in '
+            - note.tags.forEach (function (tag) {
+              - if (tag) {
+                  a.tag(href= '/tags/' + tag)= tag
+              - }
+            - })
+            = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
+            a(href= note.url + '#comments')= note.comments + ' comments'
+    - })
+    - }
+aside 
+  // TEMP
+  .grey-mod
+    .owner-avatar
+      a(href='http://douban.com/people/mockee/')
+        img(src='/images/mockee-avatar-48x48.jpg')
+    .owner-intro
+      h4 mockee
+      p
+        = 'Living in '
+        a(href='http://www.alphatown.com') 笑脸男胡同 
+  // latest notes list
+  != partial('partials/terse-list', { locals: { title: 'Latest', notes: notes } }) 
+  // recent comments
+  .mod
+    .hd
+      h3 Comments
+    .bd
+      ul.terse-list
+        - comments.forEach(function (comment) {
+          li
+            img.avatar(src=comment.gravatar)
+            p.info
+              = comment.author
+              em on
+              br
+              a(href=comment.nurl)= comment.ntitle
+        - }) 
+  //.ads
+    img(src='/images/poster/douban-movie-iphone.jpg')
+  .mod
+    .hd
+      h3 Friends
+    .bd
+      ul.links
+        // TEMP
+        li
+          ='Tifa · '
+          a(href='http://tifafa.com') Studio Tifafa
+  - if (user) { 
+  .mod
+    .hd
+      h3 Privilege
+    .bd
+      ul.terse-list
+        li
+          a(href='/note/create') Create Note
+        li
+          a(href='/note/list') Manage Notes
+        li
+          a(href='/comment/list') Manage Comments
+        li
+          a(href='/admin/logout') Logout 
+  - }
+  .mod
+    a.atom(href='/atom.xml') Subscribe

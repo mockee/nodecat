@@ -1,0 +1,14 @@
+form(method='post', action='/user/create')
+  fieldset
+    legend= title
+      .item 
+        label(for='user[email]') Email:
+        input(name='user[email]', value='')
+      .item 
+        label(for='user[name]') Username:
+        input(name='user[name]', value='')
+      .item 
+        label(for='user[password]') Password:
+        input(type='password', name='user[password]', value='')
+      .item-submit
+        input(type='submit', value='创建')

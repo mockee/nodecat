@@ -1,0 +1,43 @@
+header
+  h1 
+    a(href='/') Mockee Nodes
+section
+  .main
+    .mod
+      .hd
+        h3 Comments List
+      .bd
+        - if (comments.length) {
+        ul.comments
+          - comments.forEach(function (c) {
+            li('data-nid' = c.nid, 'data-cid'= c.id)
+              h4
+                img(class='avatar', src= c.gravatar)
+                - if (c.website) {
+                  a.author(href=c.website, target='_blank')= c.author
+                  em on
+                  a.ntitle(href=c.nurl, target='_blank')= c.ntitle
+                - } else {
+                  span.author= c.author
+                - }
+                br
+                time= c.readableDate
+              div
+                != c.bodyParsed
+                p
+                  a(href='#').del-comment 删除 
+          - });
+        script Do('comment');
+        - }
+aside 
+  .mod
+    .hd
+      h3 Privilege
+    .bd
+      ul.terse-list
+        li
+          a(href='/') Index 
+        li
+          a(href='/note/list') Manage Notes
+        li
+          a(href='/admin/logout') Logout

@@ -1,0 +1,21 @@
+{
+    "name": "nodecat",
+    "version": "0.0.1",
+    "description": "a lightweight blogging engine.",
+    "homepage": "http://mockee.com",
+    "author": "mockee <mockee@gmail.com>",
+    "dependencies": {
+        "express": ">= 2.5.0",
+        "cluster": ">= 0.7.7",
+        "stylus": ">= 0.19.0",
+        "jade": ">= 0.16.4",
+        "mongoose": ">= 2.3.12",
+        "connect-form": ">= 0.2.1",
+        "connect-mongo": ">= 0.1.5",
+        "node-uuid": ">= 1.2.0",
+        "node-markdown": ">= 0.1.0"
+    },
+    "engines": {
+        "node": ">= 0.4.0"
+    }
+}

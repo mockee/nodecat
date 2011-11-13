@@ -1,0 +1,17 @@
+!= partial('partials/header') 
+section
+  .main
+    article
+      h2= title
+      form(class='create-form', method='post', action='/note/edit/' + note.id)
+        != partial('partials/noteFields', { locals: { method: 'edit' } })
+aside 
+  div.mod
+    div.hd
+      h3 上传图片
+    div.bd
+      form(id='upload-form', method='post', action='/note/upload_pic', enctype='multipart/form-data')
+        input(class='upload-input', type='file', name='image')
+      script
+        Do('editor');
+      div.photo-preview

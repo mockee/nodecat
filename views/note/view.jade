@@ -1,0 +1,124 @@
+!= partial('partials/header') 
+section
+  .main
+    article(data-id= note.id)
+      header
+        h2= note.title
+        time= note.readableDate
+      .content!= note.bodyParsed
+      footer
+        .mod.tags
+          = 'Tags:&nbsp;'
+          - note.tags.forEach (function (tag) {
+            a.tag(href= '/tags/' + tag)= tag 
+          - })
+          span.trackback
+            = 'Trackback:&nbsp;'
+            a(href=trackback) URL
+        - if (user.salt) {
+        .mod.admin-area
+          a(href='/note/edit/' + note.id) 修改
+          a(id='delete-post', href='#') 删除 
+          form(method='post', action='/note/' + note.id)
+            input(type='hidden', name='_method', value='delete')
+          script
+            Do(function () {
+                $('#delete-post').click(function (e) {
+                    e.preventDefault();
+                    if (confirm('确定要删除?')) {
+                        $('form').submit();
+                    }
+                });
+            });
+        - } else {
+        .mod
+          // Readability Publisher Tools
+          .rdbWrapper(data-show-read='1',
+            data-show-send-to-kindle='0',
+            data-show-print='0',
+            data-show-email='0',
+            data-orientation='0',
+            data-version='1')
+          script (function(){var s=document.getElementsByTagName('script')[0],rdb=document.createElement('script');rdb.async=true;rdb.src=document.location.protocol+"//www.readability.com/embed.js";s.parentNode.insertBefore(rdb,s);})();
+        - }
+        - if (note.comments > 0) {
+        .mod
+          .hd
+            h3#comments Comments...
+          .bd
+            ul.comments
+              - comments.forEach(function (c, i) {
+                li('data-cid'= c.id)
+                  h4
+                    img(class='avatar', src= c.gravatar)
+                    - if (c.website) {
+                      a.author(href=c.website, target='_blank')= c.author
+                    - } else {
+                      span.author= c.author
+                    - }
+                    br
+                    time= c.readableDate
+                  div
+                    != c.bodyParsed
+                    - if (user.salt) {
+                    p
+                      a(href='#').del-comment 删除 
+                    - }
+              - });
+            script Do('comment');
+        - }
+        .mod
+          .hd
+            h3 New Comment
+          .bd
+            form.add-comment(method='post', action='comment')
+              - if (user.salt) {
+                input(type='hidden', name='comment[author]', value= user.name)
+                input(type='hidden', name='comment[email]', value= user.email)
+                input(type='hidden', name='comment[website]', value= user.website)
+              - } else {
+                div.item
+                  label(for='cmt-author') Name
+                  input(type='text',
+                    name='comment[author]',
+                    id='cmt-author',
+                    value= user.name,
+                    required='required',
+                    x-webkit-speech,
+                    x-webkit-grammar='builtin:translate')
+                div.item
+                  label(for='cmt-email') Email
+                  input(type='email',
+                    name='comment[email]',
+                    id='cmt-email',
+                    value= user.email,
+                    maxlength='50',
+                    placeholder='Only used for Gravatar, will not be published',
+                    required='required')
+                div.item
+                  label(for='cmt-website') Website
+                  input(type='text',
+                    name='comment[website]',
+                    id='cmt-website',
+                    value= user.website,
+                    x-webkit-speech,
+                    x-webkit-grammar='builtin:translate')
+              - }
+              div.item
+                label(for='cmt-box')
+                  - if (!user.salt) {
+                      ='Comment'
+                  - }
+                .editor
+                  .editbar
+                    .codebar
+                      a#add-js(href='#')= '<script>' 
+                    em.tips Comments are parsed with Markdown
+                  textarea(name='comment[body]', id='cmt-box', required='required')
+              div.item-submit
+                input.bn-gray(type='submit', name='submit', value="submit")
+
+            script Do('editor');
+aside 
+  div.mod
+    a(href='/') 回首页
