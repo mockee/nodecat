@@ -1,29 +1,22 @@
 !!! 5
 html
   head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0')
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', media='only screen and (max-device-width: 1024px)', href='/stylesheets/ipad.css')
-    link(rel='alternate', href='/atom.xml', type='application/atom+xml', title='Mockee Nodes')
-    script(src='/javascripts/lib/do.min.js')
     script
-      Do.add('sh-css',{ path: '/stylesheets/sh_kwrite.min.css', type: 'css' });
-      Do.add('sh', { path: '/javascripts/sh_main.min.js', type: 'js', requires: ['sh-css'] });
-      Do.add('upload', { path: '/javascripts/jquery.upload.js', type: 'js' });
-      Do.add('editor', { path: '/javascripts/editor.js', type: 'js', requires: ['upload'] });
-      Do.add('comment', { path: '/javascripts/comment.min.js', type: 'js' });
-      Do.ready('sh', function() { sh_highlightDocument('/javascripts/lang/', '.min.js'); }); 
-    //if lt IE 9
-      script
-        (function(){var e='article,aside,footer,header,nav,section,time'.split(','),i=e.length;while(i--){document.createElement(e[i])}})();
+      !{istatic('javascripts/lib/do/inline.js')}
+      !{istatic('javascripts/main.js')}
+    link(
+      rel='stylesheet'
+      href='http://static.mockee.com/stylesheets/main.css')
+      link(
+        rel='alternate'
+        href='/atom.xml'
+        type='application/atom+xml'
+        title='Mockee Nodes')
   body
     .wrapper
+      include includes/header
       != body
-      footer
-        span.copyright
-          = 'Powered by&nbsp;'
-          a(href='https://github.com/mockee/nodecat') NodeCat
-          &nbsp;&nbsp;&nbsp;&copy&nbsp;2011
-          a(href='#') mockee 
-        .powered
-          a(class='logo-nodejs', href='http://www.nodejs.org/')
+      include includes/footer

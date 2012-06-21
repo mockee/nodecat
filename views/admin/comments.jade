@@ -1,6 +1,3 @@
-header
-  h1 
-    a(href='/') Mockee Nodes
 section
   .main
     .mod
@@ -30,14 +27,4 @@ section
         script Do('comment');
         - }
 aside 
-  .mod
-    .hd
-      h3 Privilege
-    .bd
-      ul.terse-list
-        li
-          a(href='/') Index 
-        li
-          a(href='/note/list') Manage Notes
-        li
-          a(href='/admin/logout') Logout
+  != partial('partials/privilege') 

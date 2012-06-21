@@ -1,0 +1,14 @@
+{
+    "site": {
+        "name": "",
+        "url": "http://",
+        "admin": ""
+    },
+    "recapcha": {
+        "public_key": "",
+        "private_key": ""
+    },
+    "db": {
+        "conn": "mongodb://"
+    }
+}

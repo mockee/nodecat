@@ -1,0 +1,85 @@
+- if (note.comments > 0) {
+.mod#comments
+  .hd
+    h3 Comments...
+  .bd
+    ul.comments
+      - comments.forEach(function(c, i) {
+        li('data-cid'= c.id)
+          h4
+            img(class='avatar', src= c.gravatar)
+            - if (c.website) {
+              a.author(href=c.website, target='_blank')= c.author
+            - } else {
+              span.author= c.author
+            - }
+            br
+            time= c.readableDate
+          div
+            != c.bodyParsed
+            - if (user.salt) {
+            p
+              a(href='#').del-comment 删除 
+            - }
+      - });
+    script Do('comment');
+- }
+
+.mod
+  .hd
+    h3 New Comment
+  .bd
+    form.add-comment(method='post', action='comment')
+      - if (user.salt) {
+        input(type='hidden', name='comment[author]', value= user.name)
+        input(type='hidden', name='comment[email]', value= user.email)
+        input(type='hidden', name='comment[website]', value= user.website)
+      - } else {
+        .item
+          label(for='cmt-author') Name
+          input(type='text',
+            name='comment[author]',
+            id='cmt-author',
+            value= user.name,
+            required='required',
+            x-webkit-speech,
+            x-webkit-grammar='builtin:translate')
+        .item
+          label(for='cmt-email') Email
+          input(type='email',
+            name='comment[email]',
+            id='cmt-email',
+            value= user.email,
+            maxlength='50',
+            placeholder='Only used for Gravatar, will not be published',
+            required='required')
+        .item
+          label(for='cmt-website') Website
+          input(type='text',
+            name='comment[website]',
+            id='cmt-website',
+            value= user.website,
+            x-webkit-speech,
+            x-webkit-grammar='builtin:translate')
+      - }
+      .item
+        label(for='cmt-box')
+          - if (!user.salt) {
+              ='Comment'
+          - }
+        .editor
+          .editbar
+            .codebar
+              a#add-js(href='#')= '<script>' 
+            em.tips Comments are parsed with Markdown
+          textarea(name='comment[body]', id='cmt-box', required='required')
+      .item
+        script
+          var RecaptchaOptions = {
+             theme : 'clean'
+          };
+        != recaptcha_form
+      div.item-submit
+        input.bn-gray(type='submit', name='submit', value="submit")
+
+    script Do('editor');

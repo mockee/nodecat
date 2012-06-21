@@ -1,10 +1,9 @@
-!= partial('partials/header') 
 section
   .main
     article
       h2= title
       form(class='create-form', method='post', action='/note/create')
-        != partial('partials/noteFields', { locals: { method: 'create' } })
+        != partial('partials/note_fields', { locals: { method: 'create' } })
 aside 
   div.mod
     div.hd
