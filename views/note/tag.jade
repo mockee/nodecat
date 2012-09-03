@@ -1,21 +1,29 @@
-section
-  .main
-    - if (notes.length) {
-    - notes.forEach (function (note) {
-      article
-        header
-          h2
-            a(href= note.url)= note.title
-          time= note.readableDate
-        .content!= note.bodyParsed
-        footer
-          span.post-meta= 'Posted in '
-            a(href='#') NodeJS
-            = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
-            a(href= note.url + '#comments')= note.comments + ' comments'
-    - })
-    - }
-aside 
-  .grey-mod
-    img(src='/images/mockee-avatar-48x48.jpg')
-  != partial('partials/terse-list', { locals: { title: 'Latest', notes: notes } }) 
+extends ../layout
+
+block content
+  section
+    .main
+      - if (notes.length) {
+      - notes.forEach(function(note) {
+        article
+          header
+            h2
+              a(href= note.url)= note.title
+            time= note.readableDate
+          .content!= note.bodyParsed
+          footer
+            span.post-meta= 'Posted in '
+              a(href='#') NodeJS
+              = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
+              a(href= note.url + '#comments')= note.comments + ' comments'
+      - })
+      - }
+  aside 
+    .grey-mod
+      include ../includes/owner
+    .mod
+      .hd
+        h3 Latest
+      .bd
+        // render notes list
+        include ../includes/list

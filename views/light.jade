@@ -2,10 +2,12 @@
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/main.css')
+    block styles
+      link(rel='stylesheet'
+        href='/css/main.css')
   body
     .wrapper
-      != body
+      block content
       footer
     script
       !{istatic('js/ga.js')}

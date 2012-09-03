@@ -1,19 +1,22 @@
-section
-  .main
-    .mod
-      .hd
-        h3 Notes List
-      .bd
-        - if (notes.length) {
-        ul.note-list
-          - for (var i in notes) {
-          li
-            a(href= notes[i].url)= notes[i].title
-            span.date= notes[i].readableDate
-            span.opt
-              a(href='/note/edit/' + notes[i].id, target='_blank') 编辑
-              a(href='') 删除 
+extends ../layout
+
+block content
+  section
+    .main
+      .mod
+        .hd
+          h3 Notes List
+        .bd
+          - if (notes.length) {
+          ul.note-list
+            - for (var i in notes) {
+            li
+              a(href= notes[i].url)= notes[i].title
+              span.date= notes[i].readableDate
+              span.opt
+                a(href='/note/edit/' + notes[i].id, target='_blank') 编辑
+                a(href='') 删除 
+            - }
           - }
-        - }
-aside 
-  != partial('partials/privilege') 
+  aside 
+    include ../includes/privilege

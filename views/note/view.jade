@@ -1,47 +1,50 @@
-section
-  .main
-    article.full(data-id= note.id)
-      header
-        h2= note.title
-        time= note.readableDate
-      .content!= note.bodyParsed
-      footer
-        .mod.tags
-          = 'Tags:&nbsp;'
-          - note.tags.forEach (function (tag) {
-            a.tag(href= '/tags/' + tag)= tag 
-          - })
-          span.trackback
-            = 'Trackback:&nbsp;'
-            a(href=trackback) URL
-        - if (user.salt) {
-        .mod.admin-area
-          a(href='/note/edit/' + note.id) 修改
-          a(id='delete-post', href='#') 删除 
-          form(method='post', action='/note/' + note.id)
-            input(type='hidden', name='_method', value='delete')
-          script
-            Do(function() {
+extends ../layout
+
+block content
+  section
+    .main
+      article.full(data-id= note.id)
+        header
+          h2= note.title
+          time= note.readableDate
+        .content!= note.bodyParsed
+        footer
+          .mod.tags
+            = 'Tags:&nbsp;'
+            - note.tags.forEach (function (tag) {
+              a.tag(href= '/tags/' + tag)= tag 
+            - })
+            span.trackback
+              = 'Trackback:&nbsp;'
+              a(href=trackback) URL
+          - if (user.salt) {
+          .mod.admin-area
+            a(href='/note/edit/' + note.id) 修改
+            a(id='delete-post', href='#') 删除 
+            form(method='post', action='/note/' + note.id)
+              input(type='hidden', name='_method', value='delete')
+            script
+              Do(function() {
                 $('#delete-post').click(function(e) {
-                    e.preventDefault();
-                    if (confirm('确定要删除?')) {
-                        $('form').submit();
-                    }
+                  e.preventDefault();
+                  if (confirm('确定要删除?')) {
+                    $('form').submit();
+                  }
                 });
-            });
-        - } else {
-        .mod
-          // Readability Publisher Tools
-          .rdbWrapper(data-show-read='1'
-            data-show-send-to-kindle='0'
-            data-show-print='0'
-            data-show-email='0'
-            data-orientation='0'
-            data-version='1')
-          script
-            !{istatic('javascripts/readability.js')}
-        - }
-        != partial('partials/comments', { locals: { comments: comments } }) 
-aside 
-  div.mod
-    a(href='/') 回首页
+              });
+          - } else {
+          .mod
+            // Readability Publisher Tools
+            .rdbWrapper(data-show-read='1'
+              data-show-send-to-kindle='0'
+              data-show-print='0'
+              data-show-email='0'
+              data-orientation='0'
+              data-version='1')
+            script
+              !{istatic('javascripts/readability.js')}
+          - }
+          include ../includes/comments
+  aside 
+    div.mod
+      a(href='/') 回首页

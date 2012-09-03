@@ -1,63 +1,70 @@
-section
-  .main
-    - if (notes.length) {
-    - notes.forEach (function (note) {
-      article
-        header
-          h2
-            a(href= note.url)= note.title
-          time= note.readableDate
-        .content!= note.bodyParsed
-        footer
-          span.post-meta= 'Posted in '
-            - note.tags.forEach (function (tag) {
-              - if (tag) {
-                  a.tag(href= '/tags/' + tag)= tag
-              - }
-            - })
-            = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
-            a(href= note.url + '#comments')= note.comments + ' comments'
-    - })
+extends layout
+
+block content
+  section
+    .main
+      - if (notes.length) {
+      - notes.forEach(function(note) {
+        article
+          header
+            h2
+              a(href= note.url)= note.title
+            time= note.readableDate
+          .content!= note.bodyParsed
+          footer
+            span.post-meta= 'Posted in '
+              - note.tags.forEach(function(tag) {
+                - if (tag) {
+                    a.tag(href= '/tags/' + tag)= tag
+                - }
+              - })
+              = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
+              a(href= note.url + '#comments')= note.comments + ' comments'
+      - })
+      - }
+  aside 
+    .grey-mod
+      include includes/owner
+    .mod
+      .hd
+        h3 Latest
+      .bd
+        // render notes list
+        include includes/list
+
+    .mod
+      .hd
+        h3 Comments
+      .bd
+        ul.terse-list
+          - comments.forEach(function(comment) {
+            - if (comment) {
+              li
+                img.avatar(src=comment.gravatar)
+                p.info
+                  = comment.author
+                  em on
+                  br
+                  a(href=comment.nurl)= comment.ntitle
+            - }
+          - }) 
+    .mod
+      .hd
+        h3 Friends
+      .bd
+        ul.links
+          li
+            ='Tifa · '
+            a(href='http://tifafa.com') Studio Tifafa
+    - if (user) { 
+      include includes/privilege
     - }
-aside 
-  .grey-mod
-    .owner-avatar
-      a(href='http://www.douban.com/people/mockee/', target='_blank')
-        img(src='/img/mockee-avatar-48x48.jpg')
-    .owner-intro
-      h4 mockee
-      p
-        = 'Living in '
-        a(href='http://www.alphatown.com') 笑脸男胡同 
-  // latest notes list
-  != partial('partials/terse_list', { locals: { title: 'Latest', notes: notes } }) 
-  // recent comments
-  .mod
-    .hd
-      h3 Comments
-    .bd
-      ul.terse-list
-        - comments.forEach(function (comment) {
-          - if (comment) {
-            li
-              img.avatar(src=comment.gravatar)
-              p.info
-                = comment.author
-                em on
-                br
-                a(href=comment.nurl)= comment.ntitle
-          - }
-        - }) 
-  .mod
-    .hd
-      h3 Friends
-    .bd
-      ul.links
-        li
-          ='Tifa · '
-          a(href='http://tifafa.com') Studio Tifafa
-  - if (user) { 
-    != partial('partials/privilege') 
-  - }
-  .mod
-    a.atom(href='/atom.xml') Subscribe
+
+    .mod
+      a.atom(href='/atom.xml') Subscribe
+
+    .mod
+      a(href='http://www.d2forum.org/d2/7/',
+        target='_blank')
+          img(src='http://img04.taobaocdn.com/tps/i4/T1qRrhXXRiXXbn3DUh-180-250.gif',
+            width='180', height='250', alt='第七届 D2前端技术论坛 (7月7日·杭州)')

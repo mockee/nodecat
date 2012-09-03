@@ -2,7 +2,8 @@
 html
   head
     meta(charset='UTF-8')
-    meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0')
+    meta(name='viewport'
+      content='user-scalable=no, width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0')
     title= title
     script
       !{istatic('js/lib/do/inline.js')}
@@ -18,5 +19,5 @@ html
   body
     .wrapper
       include includes/header
-      != body
+      block content
       include includes/footer

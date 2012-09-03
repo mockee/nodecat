@@ -1,11 +1,18 @@
-form.login-form(method='post', action='/admin/login')
-    .item
-      input.ipt-txt(type='text', name='user[email]', placeholder='Email')
-    .item
-      input.ipt-txt(type='password', name='user[password]', placeholder='Password')
-    //.item
-      input.ipt-cb(type='checkbox', name='user[remember]')
-      label(for='user[remember]') 记住密码 
-    .item-submit
-      input(type='hidden', name='user[remember]', value='1')
-      input.bn-gray(type='submit', value='Login')
+extends ../light
+
+block content
+  form.form-login.col8(method='post'
+    action='/admin/login')
+    fieldset
+      input(type='hidden'
+        name='user[remember]'
+        value='1')
+      input.col3(type='text'
+        name='user[email]'
+        placeholder='Email')
+      input.col3(type='password'
+        name='user[password]'
+        placeholder='Password')
+      input.btn(
+        type='submit'
+        value='Login')

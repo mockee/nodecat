@@ -1,16 +1,23 @@
-section
-  .main
-    article
-      h2= title
-      form(class='create-form', method='post', action='/note/create')
-        != partial('partials/note_fields', { locals: { method: 'create' } })
-aside 
-  div.mod
-    div.hd
-      h3 上传图片
-    div.bd
-      form(id='upload-form', method='post', action='/note/upload_pic', enctype='multipart/form-data')
-        input(class='upload-input', type='file', name='image')
-      script
-        Do('editor');
-      div.photo-preview
+extends ../layout
+
+block content
+  section
+    .main
+      article
+        h2= title
+        form.create-form.form-horizontal(method='post'
+          action='/note/create')
+          - var method = 'create'
+          include includes/fields
+  aside 
+    div.mod
+      div.hd
+        h3 上传图片
+      div.bd
+        form#upload-form(method='post'
+          action='/note/upload_pic'
+          enctype='multipart/form-data')
+          input.upload-input(type='file', name='image')
+        script
+          Do('editor');
+        div.photo-preview
