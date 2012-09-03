@@ -82,7 +82,7 @@ module.exports = function(app, Note, Comment, TrackBack,
         dataObj.author = config.site.admin;
 
         // recent notes
-        Note.find().limit(50).sort('created', -1)
+        Note.find().limit(50).sort('-created')
           .execFind(function(err, notes) {
             notes.forEach(function(n, i) {
               recentNotes[i] = {
@@ -108,8 +108,7 @@ module.exports = function(app, Note, Comment, TrackBack,
         var ua = req.headers['user-agent'];
         if (/msie (6|7|8|9)\.0/i.test(ua)) {
           res.render('admin/noie', {
-            title: 'NO IE',
-            layout: 'light'
+            title: 'NO IE'
           });
         } else {
           next();
@@ -117,13 +116,13 @@ module.exports = function(app, Note, Comment, TrackBack,
       };
 
   app.get('/', validateBrowser, loadUser, function(req, res) {
-    Note.find().limit(5).sort('created', -1)
+    Note.find().limit(5).sort('-created')
       .execFind(function(err, notes, next) {
         if (err) {
           next(new utils.InternalServerError(err));
         } else {
           // query recent comments
-          Comment.find().limit(10).sort('created', -1)
+          Comment.find().limit(10).sort('-created')
             .execFind(function(err, comments) {
               res.render('index', {
                 title: config.site.name,
@@ -152,8 +151,7 @@ module.exports = function(app, Note, Comment, TrackBack,
 
   app.get('/admin/login', validateBrowser, function(req, res) {
     res.render('admin/login', {
-      title: 'Login',
-      layout: 'light'
+      title: 'Login'
     });
   });
 
@@ -198,20 +196,16 @@ module.exports = function(app, Note, Comment, TrackBack,
 
   app.get('/note/create', authUser, function(req, res) {
     res.render('note/create', {
-      locals: {
-        title: 'Create Note',
-        note: new Note()
-      }
+      title: 'Create Note',
+      note: new Note()
     });
   });
 
   app.get('/note/edit/:id', function(req, res) {
     Note.findById(req.params.id, function(err, note) {
       res.render('note/edit', {
-        locals: {
-          title: 'Edit Note',
-          note: note
-        }
+        title: 'Edit Note',
+        note: note
       });
     });
   });
@@ -234,7 +228,7 @@ module.exports = function(app, Note, Comment, TrackBack,
           next(new utils.NotFound());
         } else {
           var recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY);
-          Comment.find({ nid: note.id }).sort('created', 1)
+          Comment.find({ nid: note.id }).sort('created')
             .execFind(function(err, comments) {
               res.render('note/view', {
                 title: note.title,
@@ -255,7 +249,7 @@ module.exports = function(app, Note, Comment, TrackBack,
   });
 
   app.get('/note/list', authUser, function(req, res) {
-    Note.find().sort('created', -1)
+    Note.find().sort('-created')
       .execFind(function(err, notes) {
         res.render('admin/notes', {
           title: 'Notes / admin',
@@ -265,7 +259,7 @@ module.exports = function(app, Note, Comment, TrackBack,
   });
 
   app.get('/comment/list', authUser, function(req, res) {
-    Comment.find().sort('created', -1)
+    Comment.find().sort('-created')
       .execFind(function(err, comments) {
         res.render('admin/comments', {
           title: 'Comments / admin',
@@ -276,7 +270,7 @@ module.exports = function(app, Note, Comment, TrackBack,
 
   app.get('/tags/:tag', function(req, res) {
     var tagName = req.params.tag;
-    Note.find({ tags: tagName }).sort('created', -1)
+    Note.find({ tags: tagName }).sort('-created')
       .execFind(function(err, notes, next) {
         if (err) {
           next(new utils.InternalServerError(err));
