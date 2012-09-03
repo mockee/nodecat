@@ -1,4 +1,5 @@
-var express = require('express')
+var path = require('path')
+  , express = require('express')
   , mongoose = require('mongoose')
   , MongoStore = require('connect-mongo')(express)
   , istatic = require('istatic')
@@ -11,24 +12,28 @@ var express = require('express')
   , config = JSON.parse(require('fs').readFileSync(
       __dirname + '/config.json', 'utf8'))
 
-  , app = module.exports = express.createServer()
-  , Note, Comment, TrackBack, User, LoginToken;
+  , app = module.exports = express()
+  , Note, Comment, TrackBack, User, LoginToken
+  , pathPublic = path.join(__dirname, 'public');
 
 app.configure(function() {
   function compile(str, path) {
     return stylus(str)
       .set('filename', path)
+      // Data URI image inlining
+      .define('url', stylus.url({
+        paths: [pathPublic + '/img'] }))
       .set('compress', true);
   }
-
+  app.set('port', process.env.PORT || 8126);
   app.set('view engine', 'jade');
   app.use(stylus.middleware({
-    src: __dirname + '/public',
-    dest: __dirname + '/public',
+    src: pathPublic,
+    dest: pathPublic,
     compile: compile
   }));
 
-  app.helpers({
+  app.locals({
     istatic: istatic.serve()
   });
 
@@ -54,12 +59,24 @@ app.configure(function() {
     secret: 'nodecat'
   }));
 
-  //app.dynamicHelpers({ messages: require('express-messages') });
-
-  // tjholowaychuk.com/post/9682643240/connect-1-7-0-fast-static-file-memory-cache-and-more
-  app.use(express.staticCache());
-  app.use(express['static'](__dirname + '/public'));
+  app.use(express.static(pathPublic));
   app.set('views', __dirname + '/views');
+
+  app.use(function(err, req, res, next) {
+    if (err instanceof utils.NotFound) {
+      res.render('error/404.jade', {
+        error: err,
+        title: err.name
+      });
+    } else if (err instanceof utils.InternalServerError) {
+      res.render('error/500.jade', {
+        error: err,
+        title: err.name
+      });
+    } else {
+      console.error(err);
+    }
+  });
 });
 
 // $ NODE_ENV=development node app.js
@@ -69,28 +86,6 @@ app.configure('development', function() {
     dumpExceptions: true,
     showStack: true
   }));
-});
-
-app.configure('production', function() {
-  app.set('port', 8126);
-});
-
-app.error(function (err, req, res, next) {
-  if (err instanceof utils.NotFound) {
-    res.render('error/404.jade', {
-      error: err,
-      title: err.name,
-      layout: 'light'
-    });
-  } else if (err instanceof utils.InternalServerError) {
-    res.render('error/500.jade', {
-      error: err,
-      title: err.name,
-      layout: 'light'
-    });
-  } else {
-    console.error(err);
-  }
 });
 
 // Models
@@ -113,5 +108,5 @@ require('./router')(app, Note, Comment, TrackBack, User, LoginToken, config);
 
 if (!module.parent) {
   app.listen(app.set('port'));
-  console.info('Express server listening on port %d', app.address().port);
+  console.info('Express server listening on port %d', app.get('port'));
 }
