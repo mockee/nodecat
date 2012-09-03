@@ -13,9 +13,9 @@
     , CSS_UPLOAD_INPUT = '.upload-input'
 
     , TMPL_JS = '<pre class="sh_javascript">{{CODE}}</pre>\n\n'
-    , TMPL_BOX = '<form class="code-box"><textarea class="code-area" '
+    , TMPL_BOX = '<form class="code-box"><textarea class="col7 code-area" rows="4"'
       + 'placeholder="//javascript code here" required="required"></textarea>'
-      + '<input class="bn-gray code-submit" type="submit" value="insert" />'
+      + '<input class="btn btn-code" type="submit" value="insert" />'
       + '<b class="x">x</b></form>'
 
     , cursorMethod = {
@@ -82,13 +82,13 @@
 
     switch (tar.className) {
       case 'x':
-      $('.code-box').remove();
+      $(CSS_CODEBOX).remove();
       cmtBox.focus();
       break;
 
-      case 'bn-gray code-submit':
+      case 'btn btn-code':
       var codeArea = $(CSS_CODEAREA),
-      codeBox = $('.code-box');
+      codeBox = $(CSS_CODEBOX);
 
       if ($.trim(codeArea.val())) {
         cursorMethod.insertAfterCursor(cmtBox[0],

@@ -1,0 +1,57 @@
+@media only screen and (max-width: 1024px),
+  (orientation: landscape) and (max-device-width: 1024px)
+  body
+    padding 15px
+
+  .main
+    margin-right 250px
+    padding-right 30px
+
+  aside
+    width 250px
+    margin-left -250px
+
+@media only screen and (max-device-width: 1024px)
+  body
+    font-size 1em
+
+@media only screen and (max-width: 800px),
+  (orientation: portrait) and (max-device-width: 1024px)
+  .main
+    margin 0
+    padding 0
+
+  aside
+    display none
+
+  .powered
+    padding 0
+    margin 0
+
+@media only screen and (max-device-width: 800px) and (max-device-width: 1024px)
+  article pre
+    font-size 1em
+
+@media only screen and (orientation: portrait) and (max-width: 320px),
+  (orientation: portrait) and (max-width: 640px)
+  article .content
+    padding 0
+
+  article footer
+    margin-left 0
+
+  article pre,
+  article blockquote
+    margin 0
+
+  header h1
+    font-size 40px
+
+  .comments
+    margin-left 10px
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2)
+  .logo-nodejs
+    width 33.5px
+    height 9px
+    -webkit-background-size @width @height
