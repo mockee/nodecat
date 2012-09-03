@@ -1,0 +1,29 @@
+@import "variable"
+
+// Grid System
+grid-width(col)
+  col * ($column + $gutter) - $gutter
+
+for col in 1..16
+  .col{col}
+    width: grid-width(col)
+
+.hd:after
+.main:after
+  display: table
+  content: ''
+  clear: both
+
+.hd
+.main
+  clear: unquote('both\9')
+  *zoom: 1
+
+.col
+  float: left
+
+.main .col:last-child
+  float: right
+
+section
+  margin-bottom: 20px
