@@ -1,0 +1,13 @@
+- list_items = [{ url: '/note/create', title: 'Create Notes' }]
+- list_items.push({ url: '/note/list', title: 'Manage Notes' })
+- list_items.push({ url: '/comment/list', title: 'Manage Comments' })
+- list_items.push({ url: '/admin/logout', title: 'Logout' })
+
+.mod
+  .hd
+    h3 Privilege
+  .bd
+    ul.terse-list
+      each item in list_items
+        li
+          a(href= item.url)= item.title
