@@ -1,55 +1,32 @@
-@import 'mixins/gradients'
-
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
-form,fieldset,input,textarea,p,blockquote,th,td
-  margin 0
-  padding 0
-
-table
-  border-collapse collapse
-  border-spacing 0
-
-fieldset,img
-  border 0
-
-address,caption,cite,code,dfn,em,strong,th,var
-  font-style normal
-  font-weight normal
-
-ol,ul
-  list-style none
-
-caption,th
-  text-align left
-
-h1,h2,h3,h4,h5,h6
-  font-size 100%
-  font-weight normal
-
-q:before,q:after
-  content ''
-
-abbr,acronym
-  border 0
+@import 'arkui'
 
 input
+button
+select
+textarea
+  vertical-align top
+  border-radius 3px
+
+// button
+.btn
+  display inline-block
+  font-weight bold
+  color #666
+  padding 5px 12px
+  text-transform uppercase
+  border 1px solid rgba(0,0,0,0.1)
+  text-align center
   vertical-align middle
-
-border-radius()
-   -webkit-border-radius arguments
-   -moz-border-radius arguments
-   border-radius arguments
-
-transition()
-   -webkit-transition arguments
-   -moz-transition arguments
-   -o-transition arguments
-   transition arguments
-
-text-shadow()
-    -webkit-text-shadow arguments
-    -moz-text-shadow arguments
-    text-shadow arguments
+  white-space nowrap
+  text-shadow 0 1px 0 #fff
+  border-radius 2px
+  transition border-color .218s ease
+  background linear-gradient(top, 40% whiteSmoke, 70% #f1f1f1)
+  &:hover
+    color #333
+    border-color #939393
+    cursor pointer
+    box-shadow 0 1px 1px rgba(0,0,0,0.1)
 
 ::-webkit-input-placeholder
   font-style italic
@@ -59,37 +36,25 @@ text-shadow()
   font-style italic
 
 ::selection
-  background-color #eee
+  background-color $grayLighter
 
 :-moz-selection
-  background-color #eee
+  @extend ::selection
 
 body
   color #111
   padding 45px 35px
-  font 14px "Helvetica Neue", Helvetica, "Lucida Grande", "Luxi Sans", Arial, sans-serif
+  font 14px $sansFontFamily
   overflow-x hidden
 
-textarea
-  resize none
-  font-family arial,helvetica,sans-serif
-
-input[type=text]:focus,
-input[type=password]:focus,
-textarea:focus
-  outline 0
-
-strong
-  font-weight bold
-
 a
-  color #888
+  color $linkColor
   text-decoration none
   transition all .18s ease-in
 
 a:hover
   color #fff
-  background-color #888
+  background-color $linkColor
 
 .wrapper
   max-width 1180px
@@ -98,21 +63,17 @@ a:hover
 header
   display block
   margin-bottom 35px
-
-header h1
-  font-size 50px
-  color #333
-
-header h1 a
-  color #111
-
-header h1 a:hover
-  color #666
-  background none
-
-header .quote
-  color #ccc
-  font italic 14px Georgia
+  h1
+    font-size 50px
+    color #333
+  a
+    color #111
+  a:hover
+    color #666
+    background none
+  .quote
+    color #ccc
+    font italic 14px Georgia
 
 .main
   margin-right 300px
@@ -122,14 +83,15 @@ section
   vertical-align top
   width 100%
 
-section,aside
+aside
+section
   display inline-block
 
-aside .mod p
-  margin-bottom 8px
-
-aside .mod p:last-child
-  margin 0
+aside
+  .mod p
+    margin-bottom 8px
+  &p:last-child
+    margin 0
 
 footer
   display block
@@ -140,18 +102,15 @@ footer
   font-style italic
   margin 5px 10px
   transition all .5s ease
-
-.post-meta:hover
-  color #111
-  background-color #f3f3f3
-
-.post-meta:hover a
-  color #777
-
-.post-meta:hover a:hover
-  color #fff
-  background-color #777
-
+  &:hover
+    color #111
+    background-color #f3f3f3
+  &a
+    color #777
+  &a:hover
+    color #fff
+    background-color #777
+ommen
 .copyright
   font-size 12px
 
@@ -162,152 +121,108 @@ article
 article h2
   font-size 25px
 
-article h3
-  font-size 20px
-
-article strong
-  line-height 0
-
 time
   -webkit-text-size-adjust none
   font-style italic
   font-size 11px
   color #ccc
 
-article .content
-  display block
-  text-align justify
-  line-height 1.8
-  padding 0 10px
- 
-article .content img
-  margin-bottom -10px
-  max-width 100%
-  height auto
-
-article .content p
-  margin-bottom 15px
-
-article .align-left
-  float left
-  margin 0 20px 20px 0
-
-article .align-right
-  float right
-  margin 0 0 20px 20px
-
-article pre
-  display inline-block
-  font 13px/1.6 Monaco, Consolas, "BitStream Vera Sans Mono", CourierNewPS-BoldMT, "Courier New", Courier
-  padding 2% 3%
-  margin-right 12px
-  word-wrap break-word
-  vertical-align middle 
-  max-width 94%
-  height auto
-
-article footer
-  display inline-block
-  margin 20px 0 0 10px
-  font-size 12px
-  color #333
-  max-width 100%
-  word-break break-word
-  background-color #f7f7f7
+article
+  h3
+    font-size 20px
+  strong
+    line-height 0
+  .mod
+    margin-bottom 40px
+  .content
+    display block
+    text-align justify
+    line-height 1.8
+    padding 0 10px
+    img
+      margin-bottom -10px
+      max-width 100%
+      height auto
+    p
+      margin-bottom 15px
+  .align-left
+    float left
+    margin 0 20px 20px 0
+  .align-right
+    float right
+    margin 0 0 20px 20px
+  pre
+    display inline-block
+    font 13px/1.6 $monoFontFamily
+    padding 2% 3%
+    margin-right 12px
+    word-wrap break-word
+    vertical-align middle 
+    max-width 94%
+    height auto
+  footer
+    display inline-block
+    margin 20px 0 0 10px
+    font-size 12px
+    color #333
+    max-width 100%
+    word-break break-word
+    background-color #f7f7f7
 
 article.full footer
   display block
   background none
 
-article .mod
-  margin-bottom 40px
-
 aside
   margin-left -300px
   width 300px
+  .mod
+  .grey-mod
+    margin-bottom 50px
+  .grey-mod
+    padding 20px
+    background-color #f7f7f7
 
-aside .mod,
-aside .grey-mod
-  margin-bottom 50px
-
-aside .grey-mod
-  padding 20px
-  background-color #f7f7f7
-
-.mod .hd
-  margin-bottom 25px
-
-.mod .hd h3
-  font-size 23px
-
-.mod .bd
-  font-size 13px
-  padding 0 10px
+.mod
+  .hd
+    margin-bottom 25px
+    h3
+      font-size 23px
+  .bd
+    font-size 13px
+    padding 0 10px
 
 .admin-area
   background-color #f7f7f7
   padding 10px 15px
-
-.admin-area a
-  margin-right 10px
-
-.item
-  margin-bottom 10px
-
-.item label,
-.item input,
-.item textarea
-  display block
-
-.item input,
-.item textarea
-  font-size 14px
-  width 568px
-  border 1px solid #ccc
-  padding 5px
-  border-radius 3px
-
-.item label
-  margin-bottom 5px
-  
-.item textarea
-  height 400px
-  line-height 1.8
+  a
+    margin-right 10px
 
 .create-form
-  padding 30px 0 0 20px
+  margin-left -40px
+  padding 30px 0 0
+  .fields
+    input
+    textarea
+      font-size $baseFontSize
 
 .photo-preview
   padding-top 20px
-
-.photo-preview img
-  display block
-  max-width 260px
-  margin-bottom 20px
-  cursor pointer
+  img
+    display block
+    max-width 260px
+    margin-bottom 20px
+    cursor pointer
 
 .add-comment
-  margin-left 20px
-
-.add-comment .item
-  margin-bottom 10px
-
-.add-comment .item input
-  font-size 12px
-  color #666
-  width 400px
-
-.add-comment .item label
-  font-size 13px
-  margin-bottom 5px
-
-.add-comment .editor
-  position relative
-  max-width 680px
-  min-width 517px
-  padding 5px 
-  border 1px solid #ccc
-  border-radius 3px
+  margin-left 10px
+  .editor
+    position relative
+    max-width 680px
+    min-width 517px
+    padding 5px 
+    border 1px solid #ccc
+    border-radius 3px
  
 .editbar
   display none
@@ -318,7 +233,7 @@ aside .grey-mod
   font-size 11px
   padding 4px 8px
   margin-bottom 5px
-  background #eee
+  background $grayLighter
 
 .editbar:after
   content: '\0020';
@@ -328,22 +243,20 @@ aside .grey-mod
 
 .codebar
   float left
+  a
+    position absolute
+    top 0
+    left 8px 
+    padding 4px 6px
+    height 13px
+    color #fff
+    background-color #aaa
+  &:hover
+    background-color #777
 
-.codebar a
-  position absolute
-  top 0
-  left 8px 
-  padding 4px 6px
-  height 13px
-  color #fff
-  background-color #aaa
-
-.codebar a:hover
-  background-color #777
-
-.editbar .tips
-  font-style italic
+.tips
   float right
+  font-style italic
 
 .code-box
   position absolute
@@ -352,19 +265,25 @@ aside .grey-mod
   padding 6px
   background-color #aaa
 
-.item .code-area
-  font 12px/1.4 Monaco, Consolas, "BitStream Vera Sans Mono", "Courier New", Courier
-  width 450px
-  height 80px
+.code-area
+  display block
+  font 12px/1.4 $monoFontFamily
   margin-bottom 5px
   border none
   border-radius 0 
 
-.add-comment .item .code-submit
-  -webkit-text-size-adjust none
-  font-size 9px
-  padding 4px 8px
-  width auto
+.btn-code
+  font-size 11px
+  padding 3px 10px
+
+.add-comment
+  .item .code-submit
+    -webkit-text-size-adjust none
+    font-size 9px
+    padding 4px 8px
+    width auto
+  .item-submit
+    padding 0
 
 #cmt-box
   font-size 12px
@@ -381,106 +300,89 @@ aside .grey-mod
   bottom 9px
   cursor pointer
   color #fff
+  &:hover
+    text-shadow 0 0 6px #fff
 
-.x:hover
-  text-shadow 0 0 6px #fff
-
-.add-comment .item-submit
-  padding 0
-
+// comments section
 #comments .bd
   padding 0
 
 .comments
   margin-left 20px
+  li:hover .comment-opt
+    display inline
+  .item
+    position relative
+    font-size 13px
+    line-height 1.5
+    padding 0 40px 0 0
+    margin-bottom 25px
+  .comment-hd
+    line-height 1.3
+    margin-bottom 10px
+    em
+      color #ccc
+      font-size 12px
+      font-style italic
+      margin-right 5px
+  .comment-bd
+    padding-left 42px
+  .comment-opt
+    display none
+    position absolute
+    right 8px
+    bottom 0
+  .avatar
+    float left
+    margin-right 10px
+    width 32px
+    height 32px
+    background-color: #f7f7f7
 
-.comments li
-  margin-bottom 25px
+article
+  .comments .sh_sourceCode
+    font-size 12px
+    padding 6px 10px
 
-.comments li:hover p
-  display inline
-  
-.comments h4
-  line-height 1.3
-  margin-bottom 10px
+.terse-list
+  li
+    margin-bottom 8px
+  em
+    font-style italic
+    margin-left 6px
+    color #ccc
+  .avatar
+  .info
+    display inline-block
+  .avatar
+    vertical-align top
+    margin 0 10px 8px 0
+    width 32px
+    height 32px
+    background-color #f7f7f7
 
-article .comments .sh_sourceCode
-  font-size 12px
-  padding 6px 10px
-
-.comments .avatar
-  float left
-  margin-right 10px
-  width 32px
-  height 32px
-  background-color: #f7f7f7
-
-.comments h4 em
-  color #ccc
-  font-size 12px
-  font-style italic
-  margin-right 5px
-
-.comments .author
-  margin-right 10px
-  
-.comments div
-  position relative
-  font-size 13px
-  line-height 1.5
-  padding 0 42px
-
-.comments p
-  display none
-  position absolute
-  right 8px
-  bottom 0
-
-.terse-list li
-  margin-bottom 8px
-
-.terse-list .avatar,
-.terse-list .info
-  display inline-block
-
-.terse-list .avatar
-  vertical-align top
-  margin 0 10px 8px 0
-  width 32px
-  height 32px
-  background-color #f7f7f7
-
-.terse-list em
-  font-style italic
-  margin-left 6px
-  color #ccc
-
-/* admin */
-.note-list li
-  position relative
-  padding 8px
-
-.note-list li:hover
-  background #f7f7f7
-
-.note-list li:hover .opt
-  display inline
-
-.note-list .date
-  -webkit-text-size-adjust none
-  color #ccc
-  font-style italic
-  font-size 11px
-  margin-left 20px
-
-.note-list .opt
-  display none
-  position absolute
-  right 0
-  font-size 12px
-
-.note-list .opt a
-  margin-right 10px
+// admin
+.note-list
+  li
+    position relative
+    padding 8px
+  li:hover
+    background #f7f7f7
+    .opt
+      display inline
+  .date
+    -webkit-text-size-adjust none
+    color #ccc
+    font-style italic
+    font-size 11px
+    margin-left 20px
+  .opt
+    display none
+    position absolute
+    right 0
+    font-size 12px
+    a
+      margin-right 10px
 
 article .tags
   color: #ccc
@@ -490,102 +392,64 @@ article .tags
 
 .tag
   margin-right 3px
-
-.tag:last-child
-  margin 0
+  &:last-child
+    margin 0
 
 .trackback
   margin-left 8px
 
-/* logos */
+// logos
 .powered
   float right
   text-align right
   padding-right 30px
-
-.powered a
-  display inline-block
-
-.powered a:hover
-  opacity 0.6
-  background-color transparent
+  a
+    display inline-block
+  a:hover
+    opacity 0.6
+    background-color transparent
 
 .logo-nodejs
   width 67px
   height 18px
-  background url(unquote('data:image/png;base64,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')) no-repeat
+  background url(logo-nodejs.png) no-repeat
 
-.bn-gray
-  display inline-block
-  font-weight bold
-  color #666
-  padding 7px 12px
-  text-transform uppercase
-  border 1px solid rgba(0, 0, 0, 0.1)
-  border-radius 2px
-  text-align center
-  vertical-align middle
-  white-space nowrap
-  text-shadow 0 1px 0 #fff
-  transition border-color .218s ease
-  background linear-gradient(top, 40% whiteSmoke, 70% #f1f1f1)
-
-.bn-gray:hover
-  color #333
-  border-color #939393
-  cursor pointer
-  box-shadow 0 1px 1px rgba(0, 0, 0, 0.1)
-
-.login-form
-  width 522px
+// login
+.form-login
   margin 200px auto
+  input
+    vertical-align top
+    margin-right 10px
+    &:last-child
+      margin: 0
 
-.login-form .item
-.login-form .item-submit
-  display inline-block
-  margin-right 10px
-
-.login-form input
-.login-form label
-  display inline
-  width auto
-
-.login-form .ipt-txt
-  width 200px
-
-.login-form .ipt-cb
-  margin-right 5px
-
-.owner-avatar,
+.owner-avatar
 .owner-intro
   display inline-block
 
 .owner-avatar
   margin-right 10px
   vertical-align top
-
-.owner-avatar img
-  margin-bottom -3px
+  img
+    margin-bottom -3px
 
 .owner-intro
   padding-top 6px
+  h4
+    margin-bottom 4px
+  p
+    font-size 12px
+    font-style italic
+    color #bbb
 
-.owner-intro h4
-  margin-bottom 4px
-
-.owner-intro p
-  font-size 12px
-  font-style italic
-  color #bbb
-
-.atom,
+.atom
 .atom:hover
   display inline-block
   height 16px
   line-height @height 
   font-size 11px
   padding-left 22px
-  background url(unquote('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAACUElEQVR42mVSS2sTURS+584jaTNtMA80jaitRBTcNAYR0bY+IoqC1E0RN7oSd4oKbros1oXgRvwFgu2iFsEs7MJFEQLGUChFE6sSS2xatLRNmmRm7sNzJ6VEHIbDgfvd8z3uAba1vjbzopGdpECAAtD22moIAHBB4PBwKH0HVqcfy/wbVt+iOmgGxfrPrwFoXqVEgn8jfAFKj/p1xo1ovDN1FTTCl/LiV/5/tCJhcv0301EJnhmReODsbeJ90q66cxN8fgJYrR3NbQGEaPcHeww1j4Jbk5vL4O+igbC2N2kcvUY2fpJqaQfNbOE6EsqjSZ9O2nXr+46Zp+9BOIFsfHaMfX7bQnNHNh2pPTjTYxhg9qasWy/13pO0o1uWs2JhErpjeIfuH+CVglv5gWjuCM4JRYk4Fc2Br0spOXXXd+M1jSbE7BgvZpDEPD8qqKXQjhScaA/PxU0fQL0iChm5tkgjCegM0740L2WduSntyGW0JGy7WcwJVwj1PHQ7QVKvyMUMm74pvmaIaenpcQ6BxsxTJOk4cR3RyCCF9CR5eZsXnxhXntMDA+zDM1ldRg9ooDH/XjarKrroIcxKtDwgGtUjFGL9cPASq246n17hYCMxiFPtbznlpC8l3BYDeG9ZrxCnpnJcKaq8ywXsaTCGSpwl1ROfJZiUksDK+PFdEbwBwr9H+Hc733OtBLV4EhGNLx+VtmDMWS07K2U9ZKrlC/55J1lz53W2E/RcKt2uFEq99Ics/9AwtNZbLEzhnkiuDryqelSsGuEpoWANjeB6/wXaQlN7EB7K8wAAAABJRU5ErkJggg==')) no-repeat
+  background url(icon-atom.png) no-repeat
 
 .atom:hover
   color #666
@@ -594,65 +458,9 @@ blockquote
   color #333
   padding 0 28px
   margin 0 15px
-  background url(unquote('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdGMTE3NDA3MjA2ODExOTEwOUU0MTc2NDEyRUQxNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxM0YxMkVBMUQ1MTQxMUUwQUI5RUY0NUI3QkZGQTQyQiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxM0YxMkVBMEQ1MTQxMUUwQUI5RUY0NUI3QkZGQTQyQiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZBN0YxMTc0MDcyMDY4MTE5MTA5RTQxNzY0MTJFRDE0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkY3N0YxMTc0MDcyMDY4MTE5MTA5RTQxNzY0MTJFRDE0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+k/dt5wAAADNQTFRF9fX11tbWz8/P2dnZ8vLy+fn57+/v4uLi6enp3Nzc0tLS5ubm39/f7Ozs/Pz8////zMzMjoW52gAAAIxJREFUeNpMUFsSxCAIi1XrblHJ/U+7gNpZfsyQBwg0qn5u3TVkwt/ZyWe17osc3sRDXsGqsWxqGEa2GY5kjmIdrW7Qo/s6C82k7DzThQPFUpJEokeLm+DRjIB7oTRjchRUNuqKjWyRduB8lflVspzMf1NFPbT6cssDHWd6fGhNtwtJlrIv1LuzPwEGAJIYD7wMeMvcAAAAAElFTkSuQmCC')) no-repeat
+  background url(icon-quote.png) no-repeat
 
 .ads a:hover
   background none
 
-@media only screen and (max-width: 1024px),
-  (orientation: landscape) and (max-device-width: 1024px)
-  body
-    padding 15px
-
-  .main
-    margin-right 250px
-    padding-right 30px
-
-  aside
-    width 250px
-    margin-left -250px
-
-@media only screen and (max-device-width: 1024px)
-  body
-    font-size 1em
-
-@media only screen and (max-width: 800px),
-  (orientation: portrait) and (max-device-width: 1024px)
-  .main
-    margin 0
-    padding 0
-
-  aside
-    display none
-
-  .powered
-    padding 0
-    margin 0
-
-@media only screen and (max-device-width: 800px) and (max-device-width: 1024px)
-  article pre
-    font-size 1em
-
-@media only screen and (orientation: portrait) and (max-width: 320px),
-  (orientation: portrait) and (max-width: 640px)
-  article .content
-    padding 0
-
-  article footer
-    margin-left 0
-
-  article pre,
-  article blockquote
-    margin 0
-
-  header h1
-    font-size 40px
-
-  .comments
-    margin-left 10px
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2)
-  .logo-nodejs
-    width 33.5px
-    height 9px
-    -webkit-background-size @width @height
+@import 'responsive'
