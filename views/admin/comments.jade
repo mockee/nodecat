@@ -3,31 +3,33 @@ extends ../layout
 block content
   section
     .main
-      .mod
-        .hd
-          h3 Comments List
-        .bd
-          - if (comments.length) {
-          ul.comments
-            - comments.forEach(function(c) {
-              li('data-nid' = c.nid, 'data-cid'= c.id)
-                h4
-                  img(class='avatar', src= c.gravatar)
-                  - if (c.website) {
-                    a.author(href=c.website, target='_blank')= c.author
-                    em on
-                    a.ntitle(href=c.nurl, target='_blank')= c.ntitle
-                  - } else {
-                    span.author= c.author
-                  - }
-                  br
-                  time= c.readableDate
-                div
-                  != c.bodyParsed
-                  p
-                    a(href='#').del-comment 删除 
-            - });
-          script Do('comment');
-          - }
+      article
+        .mod
+          .hd
+            h3 Comments List
+          .bd
+            - if (comments.length) {
+            ul.comments
+              - comments.forEach(function(c) {
+                li.item('data-nid' = c.nid
+                  'data-cid'= c.id)
+                  .comment-hd
+                    img(class='avatar', src= c.gravatar)
+                    - if (c.website) {
+                      a.author(href=c.website, target='_blank')= c.author
+                      em on
+                      a.ntitle(href=c.nurl, target='_blank')= c.ntitle
+                    - } else {
+                      span.author= c.author
+                    - }
+                    br
+                    time= c.readableDate
+                  .comment-bd
+                    != c.bodyParsed
+                    .comment-opt
+                      a(href='#').del-comment 删除 
+              - });
+            script Do('comment');
+            - }
   aside 
     include ../includes/privilege
