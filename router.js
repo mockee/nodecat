@@ -11,6 +11,10 @@ module.exports = function(app, Note, Comment, TrackBack,
   var PUBLIC_KEY  = config.recapcha.public_key
     , PRIVATE_KEY = config.recapcha.private_key
 
+    , siteUrl = config.site.url
+    , siteName = config.site.name
+    , siteAdmin = config.site.admin
+
     , authLoginToken = function(req, res, next) {
         var cookie = JSON.parse(req.cookies.logintoken);
 
@@ -77,9 +81,9 @@ module.exports = function(app, Note, Comment, TrackBack,
           , recentNotes = [];
 
         // basic info
-        dataObj.title = config.site.name;
-        dataObj.url = config.site.url;
-        dataObj.author = config.site.admin;
+        dataObj.title = siteName;
+        dataObj.url = siteUrl;
+        dataObj.author = siteAdmin;
 
         // recent notes
         Note.find().limit(50).sort('-created')
@@ -125,7 +129,8 @@ module.exports = function(app, Note, Comment, TrackBack,
           Comment.find().limit(10).sort('-created')
             .execFind(function(err, comments) {
               res.render('index', {
-                title: config.site.name,
+                title: siteName,
+                admin: siteAdmin,
                 user: req.currUser,
                 notes: notes,
                 comments: utils.distinct(comments, 'email').slice(0, 5)
