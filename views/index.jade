@@ -18,11 +18,13 @@ block content
                     a.tag(href= '/tags/' + tag)= tag
                 - }
               - })
-              = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
+              ,&nbsp;&nbsp;by&nbsp;
+              = admin
+              ,&nbsp;&nbsp;
               a(href= note.url + '#comments')= note.comments + ' comments'
       - })
       - }
-  aside 
+  aside
     .grey-mod
       include includes/owner
     .mod
@@ -47,7 +49,7 @@ block content
                   br
                   a(href=comment.nurl)= comment.ntitle
             - }
-          - }) 
+          - })
     .mod
       .hd
         h3 Friends
@@ -56,7 +58,7 @@ block content
           li
             ='Tifa · '
             a(href='http://tifafa.com') Studio Tifafa
-    - if (user) { 
+    - if (user) {
       include includes/privilege
     - }
 

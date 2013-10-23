@@ -13,12 +13,12 @@ block content
           .content!= note.bodyParsed
           footer
             span.post-meta= 'Posted in '
-              a(href='#') NodeJS
-              = ',&nbsp;&nbsp;by mockee,&nbsp;&nbsp;'
+              a(href='/tags/' + title)= title
+              &nbsp;&nbsp;by mockee,&nbsp;&nbsp;
               a(href= note.url + '#comments')= note.comments + ' comments'
       - })
       - }
-  aside 
+  aside
     .grey-mod
       include ../includes/owner
     .mod

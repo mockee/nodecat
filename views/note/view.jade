@@ -10,17 +10,17 @@ block content
         .content!= note.bodyParsed
         footer
           .mod.tags
-            = 'Tags:&nbsp;'
+            | Tags:&nbsp;
             - note.tags.forEach (function (tag) {
-              a.tag(href= '/tags/' + tag)= tag 
+              a.tag(href= '/tags/' + tag)= tag
             - })
             span.trackback
-              = 'Trackback:&nbsp;'
+              | Trackback:&nbsp;
               a(href=trackback) URL
           - if (user.salt) {
           .mod.admin-area
             a(href='/note/edit/' + note.id) 修改
-            a(id='delete-post', href='#') 删除 
+            a(id='delete-post', href='#') 删除
             form(method='post', action='/note/' + note.id)
               input(type='hidden', name='_method', value='delete')
             script
@@ -45,6 +45,6 @@ block content
               !{istatic('js/readability.js')}
           - }
           include ../includes/comments
-  aside 
+  aside
     div.mod
       a(href='/') 回首页
