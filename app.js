@@ -2,7 +2,7 @@ var path = require('path')
   , express = require('express')
   , mongoose = require('mongoose')
   , MongoStore = require('connect-mongo')(express)
-  , istatic = require('istatic')
+  , istatic = require('express-istatic')
   , stylus = require('stylus')
 
   , utils = require('./lib/utils')
