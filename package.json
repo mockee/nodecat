@@ -1,21 +1,23 @@
 {
     "name": "nodecat",
-    "version": "0.0.3",
-    "description": "a lightweight blogging engine.",
+    "version": "0.0.4",
+    "description": "A lightweight blogging engine.",
     "homepage": "http://mockee.com",
     "author": "mockee <mockee@gmail.com>",
+    "repository": "git@github.com:mockee/nodecat.git",
     "dependencies": {
-        "express": ">= 3.0.0rc4",
-        "stylus": ">= 0.29.0",
-        "jade": ">= 0.27.2",
-        "mongoose": ">= 3.1.1",
-        "connect-form": ">= 0.2.1",
-        "connect-mongo": ">= 0.1.9",
-        "node-uuid": ">= 1.2.0",
-        "node-markdown": ">= 0.1.0",
-        "istatic": ">= 0.0.8"
+        "express": "~3.0.0",
+        "stylus": "~0.38.0",
+        "jade": "~0.35.0",
+        "mongoose": "~3.6.20",
+        "connect-form": "~0.2.1",
+        "connect-mongo": "~0.3.3",
+        "node-uuid": "~1.4.1",
+        "node-markdown": "~0.1.1",
+        "express-istatic": "~0.1.0",
+        "mkdirp": "~0.3.5"
     },
     "engines": {
-        "node": ">= 0.8.8"
+        "node": ">= 0.10.0"
     }
 }
