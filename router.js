@@ -1,5 +1,6 @@
 var fs = require('fs')
   , uuid = require('node-uuid')
+  , multiparty = require('multiparty')
   , Recaptcha = require('./lib/recaptcha').Recaptcha
   , utils = require('./lib/utils')
   , atom = require('./lib/atom')
@@ -310,13 +311,14 @@ module.exports = function(app, Note, Comment, TrackBack
   })
 
   app.post('/note/upload_pic', function(req, res) {
-    console.log(
-      '\nuploaded %s to %s',
-      req.files.image.filename,
-      req.files.image.path)
+    var form = new multiparty.Form({
+      uploadDir: utils.getUploadPath()
+    })
 
-    res.header('Content-Type', '')
-    res.end('{"src":"' + req.files.image.path + '"}')
+    form.parse(req, function(err, fields, files) {
+      res.header('Content-Type', '')
+      res.end('{"src":"' + files.image[0].path + '"}')
+    })
   })
 
   app.post('/:year/:month/:day/:slug/comment', function(req, res) {

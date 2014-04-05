@@ -48,13 +48,7 @@ app.use(connect.logger(
   //:remote-addr:status:referrer
   '\x1b[0m:date \x1b[32m:method\x1b[0m \x1b[33m:url\x1b[31m :response-time ms \x1b[36m:user-agent'))
 
-app.use(bodyParser({
-  keepExtensions: true
-, uploadDir: utils.getUploadPath()
-}))
-
 app.use(connect.methodOverride())
-
 app.use(cookieParser())
 app.use(connect.session({
   cookie: { maxAge: 43200000 }
