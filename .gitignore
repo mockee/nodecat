@@ -1,5 +1,8 @@
 *.DS_Store
 *.css
+*.min.js
 !sh_kwrite.min.css
 node_modules/
+config.json
+public/uploads/
 public/atom.xml
