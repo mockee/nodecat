@@ -17,33 +17,21 @@ block content
             span.trackback
               | Trackback:&nbsp;
               a(href=trackback) URL
-          - if (user.salt) {
-          .mod.admin-area
-            a(href='/note/edit/' + note.id) 修改
-            a(id='delete-post', href='#') 删除
-            form(method='post', action='/note/' + note.id)
-              input(type='hidden', name='_method', value='delete')
-            script
-              Do(function() {
-                $('#delete-post').click(function(e) {
-                  e.preventDefault();
-                  if (confirm('确定要删除?')) {
-                    $('form').submit();
-                  }
+          if user.salt
+            .mod.admin-area
+              a(href='/note/edit/' + note.id) 修改
+              a(id='delete-post', href='#') 删除
+              form(method='post', action='/note/' + note.id)
+                input(type='hidden', name='_method', value='DELETE')
+              script.
+                Do(function() {
+                  $('#delete-post').click(function(e) {
+                    e.preventDefault();
+                    if (confirm('确定要删除?')) {
+                      $('form').submit();
+                    }
+                  });
                 });
-              });
-          - } else {
-          .mod
-            // Readability Publisher Tools
-            .rdbWrapper(data-show-read='1'
-              data-show-send-to-kindle='0'
-              data-show-print='0'
-              data-show-email='0'
-              data-orientation='0'
-              data-version='1')
-            script
-              !{istatic('js/readability.js')}
-          - }
           include ../includes/comments
   aside
     div.mod

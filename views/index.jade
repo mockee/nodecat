@@ -18,9 +18,9 @@ block content
                     a.tag(href= '/tags/' + tag)= tag
                 - }
               - })
-              ,&nbsp;&nbsp;by&nbsp;
+              | ,&nbsp;&nbsp;by&nbsp;
               = admin
-              ,&nbsp;&nbsp;
+              | ,&nbsp;&nbsp;
               a(href= note.url + '#comments')= note.comments + ' comments'
       - })
       - }
@@ -58,9 +58,8 @@ block content
           li
             ='Tifa · '
             a(href='http://tifafa.com') Studio Tifafa
-    - if (user) {
+    if user
       include includes/privilege
-    - }
 
     .mod
       a.atom(href='/atom.xml') Subscribe

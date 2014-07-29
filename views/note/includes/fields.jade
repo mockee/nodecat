@@ -6,13 +6,12 @@ fieldset
         name='note[title]'
         value= note.title || '')
 
-  - if (method === 'create') {
-  .field-group
-    label.field-label(for='slug') slug 
-    .fields
-      input#slug.col8(type='text'
-        name='note[slug]')
-  - }
+  if method === 'create'
+    .field-group
+      label.field-label(for='slug') slug
+      .fields
+        input#slug.col8(type='text'
+          name='note[slug]')
 
   .field-group
     label.field-label(for='text') 正文
@@ -20,15 +19,14 @@ fieldset
       textarea#notebody.col10(rows='20', name='note[body]')= note.body || ''
 
   .field-group
-    label.field-label(for='tags') tags 
+    label.field-label(for='tags') tags
     .fields
       input#tags.col8(type='text'
         name='note[tags]'
         value= note.tags.join(' ') || '')
 
   .form-actions
-    - if (method === 'edit') {
-    input(name='id', value=note.id, type='hidden')
-    input(name='_method', value='PUT', type='hidden')
-    - }
+    if (method === 'edit')
+      input(name='id', value=note.id, type='hidden')
+      input(name='_method', value='PUT', type='hidden')
     input.btn(type='submit', name='submit')

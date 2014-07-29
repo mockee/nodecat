@@ -34,11 +34,11 @@
       method='post'
       action='comment')
 
-      - if (user.salt) {
+      if user.salt
         input(type='hidden', name='comment[author]', value= user.name)
         input(type='hidden', name='comment[email]', value= user.email)
         input(type='hidden', name='comment[website]', value= user.website)
-      - } else {
+      else
         .field-group
           label.field-label(for='cmt-author') Name
           .fields
@@ -46,9 +46,7 @@
               name='comment[author]'
               id='cmt-author'
               value= user.name
-              required='required'
-              x-webkit-speech
-              x-webkit-grammar='builtin:translate')
+              required='required')
 
         .field-group
           label.field-label(for='cmt-email') Email
@@ -67,16 +65,12 @@
             input.col7(type='url'
               name='comment[website]'
               id='cmt-website'
-              value= user.website
-              x-webkit-speech
-              x-webkit-grammar='builtin:translate')
-      - }
+              value= user.website)
 
       .field-group
         label.field-label(for='cmt-box')
-          - if (!user.salt) {
-              ='Comment'
-          - }
+          if !user.salt
+            ='Comment'
         .fields
           .editor
             .editbar
@@ -87,7 +81,7 @@
               required='required')
 
       .field-group
-        script
+        script.
           var RecaptchaOptions = {
              theme : 'clean'
           };
@@ -98,4 +92,4 @@
           name='submit'
           value="submit")
 
-    script Do('editor');
+    script Do('editor')
