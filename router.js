@@ -1,10 +1,10 @@
 var fs = require('fs')
   , uuid = require('node-uuid')
   , multiparty = require('multiparty')
-  , Recaptcha = require('./lib/recaptcha').Recaptcha
+  , Recaptcha = require('recaptcha').Recaptcha
   , utils = require('./lib/utils')
   , atom = require('./lib/atom')
-  
+
 
 module.exports = function(app, Note, Comment, TrackBack
   , User, LoginToken, config) {
@@ -355,7 +355,9 @@ module.exports = function(app, Note, Comment, TrackBack
     }
 
     recaptcha.verify(function(success, error_code) {
-      if (success) {
+      if (!success) {
+        res.redirect(noteUrl)
+      } else {
         Note.findOne(condition, function(err, note) {
           if (!err) {
             // save comment
@@ -378,8 +380,6 @@ module.exports = function(app, Note, Comment, TrackBack
             })
           }
         })
-      } else {
-        res.redirect(noteUrl)
       }
     })
   })
@@ -400,7 +400,7 @@ module.exports = function(app, Note, Comment, TrackBack
     })
   })
 
-  app.del('/note/:id', function(req, res) {
+  app.post('/note/:id', function(req, res) {
     Note.findById(req.params.id, function(err, note) {
       note.remove(function(err) {
         generateAtom()
@@ -409,7 +409,7 @@ module.exports = function(app, Note, Comment, TrackBack
     })
   })
 
-  app.put('/note/edit/:id', function(req, res) {
+  app.post('/note/edit/:id', function(req, res) {
     Note.findById(req.params.id, function(err, note) {
       var reqBody = req.body.note
 
