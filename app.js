@@ -1,9 +1,11 @@
 var path = require('path')
   , express = require('express')
   , connect = require('connect')
+  , session = require('express-session')
   , mongoose = require('mongoose')
-  , MongoStore = require('connect-mongo')(connect)
-  , istatic = require('express-istatic')
+  , MongoStore = require('connect-mongo')(session)
+  , methodOverride = require('method-override')
+  , morgan  = require('morgan')
   , stylus = require('stylus')
 
   , utils = require('./lib/utils')
@@ -38,19 +40,29 @@ app.use(stylus.middleware({
 , compile: compile
 }))
 
-app.locals.istatic = istatic.serve()
-
 // set mongodb connection
 app.set('connection', config.db.conn)
 
 // Middleware
-app.use(connect.logger(
-  //:remote-addr:status:referrer
-  '\x1b[0m:date \x1b[32m:method\x1b[0m \x1b[33m:url\x1b[31m :response-time ms \x1b[36m:user-agent'))
+//app.use(connect.logger(
+  ////:remote-addr:status:referrer
+  //'\x1b[0m:date \x1b[32m:method\x1b[0m \x1b[33m:url\x1b[31m :response-time ms \x1b[36m:user-agent'))
 
-app.use(connect.methodOverride())
+app.use(morgan({
+  format: 'dev'
+, skip: function(req, res) {
+    return res.statusCode === 304
+  }
+}))
+
+// override with the X-HTTP-Method-Override header in the request
+app.use(methodOverride('X-HTTP-Method-Override'))
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded())
+// parse application/json
+app.use(bodyParser.json())
 app.use(cookieParser())
-app.use(connect.session({
+app.use(session({
   cookie: { maxAge: 43200000 }
 , store: new MongoStore({ url: app.set('connection') })
 , secret: 'nodecat'
